@@ -28,5 +28,14 @@ spec:
         volumeMounts:
           - mountPath: "/data"
             name: nfs-vol
+        tolerations:
+        - effect: NoExecute
+          key: node.kubernetes.io/not-ready
+          operator: Exists
+          tolerationSeconds: 30
+        - effect: NoExecute
+          key: node.kubernetes.io/unreachable
+          operator: Exists
+          tolerationSeconds: 30
       nodeSelector:
         kubernetes.io/os: linux
