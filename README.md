@@ -211,7 +211,7 @@ Events:
   Normal   Started                 10m   kubelet                  Started container alpine
   Warning  NodeNotReady            25s   node-controller          Node is not ready
 
-[root@rhel3 k8sNodeFailureNFS]# k describe pod test-deployment-5ccb7f559f-6kscn
+# k describe pod test-deployment-5ccb7f559f-6kscn
 Name:             test-deployment-5ccb7f559f-6kscn
 Namespace:        default
 Priority:         0
@@ -285,14 +285,15 @@ node/rhel2 tainted
 Verify that the pod has been rescheduled onto another node and that it has successfully mounted the iSCSI PVC.
 
 ```
-[root@rhel3 k8sNodeFailureNFS]# ./verify_status.sh
+# ./verify_status.sh
 NAME              READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES          SELECTOR
 test-deployment   1/1     1            1           13m   alpine       alpine:3.19.1   app=test
 NAME                         DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES          SELECTOR
 test-deployment-5ccb7f559f   1         1         1       13m   alpine       alpine:3.19.1   app=test,pod-template-hash=5ccb7f559f
 NAME                               READY   STATUS    RESTARTS   AGE     IP             NODE    NOMINATED NODE   READINESS GATES
 test-deployment-5ccb7f559f-6kscn   1/1     Running   0          2m28s   192.168.26.5   rhel1   <none>           <none>
-[root@rhel3 k8sNodeFailureNFS]# k describe pod test-deployment-5ccb7f559f-6kscn
+
+# k describe pod test-deployment-5ccb7f559f-6kscn
 Name:             test-deployment-5ccb7f559f-6kscn
 Namespace:        default
 Priority:         0
