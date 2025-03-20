@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+  labels:
+    app: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      volumes:
+        - name: nfs-vol
+          persistentVolumeClaim:
+            claimName: pvc-nfs
+      containers:
+      - name: alpine
+        image: alpine:3.19.1
+        command:
+          - /bin/sh
+          - "-c"
+          - "sleep 7d"
+        volumeMounts:
+          - mountPath: "/data"
+            name: nfs-vol
+      nodeSelector:
+        kubernetes.io/os: linux
